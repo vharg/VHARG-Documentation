@@ -1,0 +1,217 @@
+!*********************************************
+!
+!   FALL3D GWL MASTER FILE
+!   
+!
+!   NOTE: This is a MASTER input file. It
+!         does not correspond to any real case.
+!         To run a new problem copy this file
+!         to the RUNS/RUN_NAME/ folder and modify it
+!         to define the run
+!
+!         CHANGE name of input file to ‘RUN_NAME.inp’
+!      
+!         Where it says **EDIT** this needs to be changed 
+!         depending on the run input data
+!
+!*********************************************
+!
+! --------------------------------------------
+!  Blocks read by Fall3d and utility programs
+! --------------------------------------------
+!
+ TIME_UTC
+   YEAR = 2014
+   MONTH = 02
+   DAY = 13
+   BEGIN_METEO_DATA_(HOURS_AFTER_00) = 0
+   TIME_STEP_METEO_DATA_(MIN) = 360
+   END_METEO_DATA_(HOURS_AFTER_00) = 96
+   ERUPTION_START_(HOURS_AFTER_00) = 16
+   ERUPTION_END_(HOURS_AFTER_00) = 17.5
+   RUN_END_(HOURS_AFTER_00) = 45
+   RESTART = NO
+ !
+ GRID
+   COORDINATES = LON-LAT
+   LON_LAT
+      LONMIN = 110
+      LONMAX = 113
+      LATMIN = -9
+      LATMAX = -7
+      LON_VENT = 112.308
+      LAT_VENT = -7.93
+      VENT_HEIGHT_(M) = 1731
+   NX = 49
+   NY = 33
+   ZLAYER_(M)  FROM 0 TO 25000 INCREMENT 500.
+!
+! --------------------------------------------
+!  Block read by SetTGsd utility program
+! --------------------------------------------
+!
+ GRANULOMETRY
+   DISTRIBUTION = GAUSSIAN
+   NUMBER_OF_CLASSES = 9
+   FI_MEAN = .9
+   FI_DISP = 1
+   FI_RANGE = -2. 6
+   DENSITY_RANGE = 1500 2500
+   SHAPE_RANGE = 0.9 0.9
+   MIXING_FACTOR = 0.5
+!
+! --------------------------------------------
+!  Blocks read by SetSrc utility program
+! --------------------------------------------
+!
+ SOURCE
+   !
+   SOURCE_TYPE = PLUME
+   !
+   POINT_SOURCE
+      HEIGHT_ABOVE_VENT_(M) = 5000
+      MASS_FLOW_RATE_(KGS)  = ESTIMATE-MASTIN
+      !
+   SUZUKI_SOURCE
+      HEIGHT_ABOVE_VENT_(M) = 16269 
+      MASS_FLOW_RATE_(KGS)  = ESTIMATE-DEGRUYTER
+      A = 4.
+      L = 1.
+      !
+   PLUME_SOURCE
+      SOLVE_PLUME_FOR =  MFR
+      MFR_SEARCH_RANGE = 7.  8.
+      HEIGHT_ABOVE_VENT_(M) = 16269.
+      MASS_FLOW_RATE_(KGS)  = 1d3 1d4
+      EXIT_VELOCITY_(MS) = 200.
+      EXIT_TEMPERATURE_(K) = 1073.
+      EXIT_WATER_FRACTION_(%) = 1.
+      !
+    RESUSPENSION_SOURCE
+      MAX_RESUSPENSION_SIZE_(MIC) = 100
+      DEPOSIT_THRESHOLD_(KGM2) = 1
+      MAX_INJECTION_HEIGHT_(M) = 1000
+      EMISSION_SCHEME =  WESTPHAL
+      EMISSION_FACTOR = 1.0
+      THRESHOLD_UST = 0.3
+      MOISTURE_CORRECTION = no
+      !
+ AGGREGATION
+    AGGREGATION_MODEL = NONE
+    FI_AGGREGATES = 2.
+    DENSITY_AGGREGATES = 350.
+    VSET_FACTOR = 1.0
+    PERCENTAGE_(%) = 20.
+    FRACTAL_EXPONENT = 2.99
+    !
+ AEROSOLS
+    SO2 = no
+    SO2_PERCENTAGE_(%) = 1.
+    !
+  GRAVITY_CURRENT
+    GRAVITY_CURRENT = yes
+    C_FLOW_RATE   = 1d4
+    LAMBDA_GRAV   = 0.2
+    K_ENTRAIN     = 0.1
+    BRUNT_VAISALA = 0.02
+!
+! --------------------------------------------
+!  Block read by Fall3d
+! --------------------------------------------
+!
+ FALL3D
+   TERMINAL_VELOCITY_MODEL = DIOGUARDI2018
+   VERTICAL_TURBULENCE_MODEL = SIMILARITY
+   VERTICAL_DIFFUSION_COEFFICIENT_(M2/S) = 500.
+   HORIZONTAL_TURBULENCE_MODEL = CMAQ
+   RAMS_CS = 0.3
+   HORIZONTAL_DIFFUSION_COEFFICIENT_(M2/S) = 5000.
+   WET_DEPOSITION = no
+   !
+ OUTPUT
+   POSTPROCESS_TIME_INTERVAL_(HOURS) = .5
+   POSTPROCESS_3D_VARIABLES = YES
+   POSTPROCESS_CLASSES      = YES
+   POSTPROCESS_LOAD         = YES
+   POSTPROCESS_THICKNESS    = YES
+   POSTPROCESS_C_GROUND     = YES
+   POSTPROCESS_C_AIR        = YES
+   POSTPROCESS_FL           = YES
+   POSTPROCESS_AOT          = YES
+   TRACK_POINTS  = YES
+!
+! ----------------------------------------------
+!  Blocks read by Postprocess utility program(s)
+! ----------------------------------------------
+!
+POSTPROCESS
+  CROP_DOMAIN
+      LONMIN = 110.
+      LONMAX = 113.
+      LATMIN = -9.
+      LATMAX = -7.
+  !
+  !  Meteo
+  !
+  MAP_TEMPERATURE = yes
+  MAP_VELOCITY = yes
+  Z_CUTS_(M) = 1000 5000
+  !
+  !   Time independent variables
+  !
+  MAP_TOPOGRAPHY = no
+      UNITS = M
+      CONTOUR_LEVELS =  1. 100. 500. 1000. 1500. 2000. 2500.
+  !
+  !   Deposit variables
+  !
+  MAP_TOTAL_LOAD = no
+      UNITS = KG/M2
+      CONTOUR_LEVELS =  0.1  0.5   1. 5.  10. 50.
+  !
+  MAP_WET_LOAD = no
+      UNITS = KG/M2
+      CONTOUR_LEVELS =  0.1  0.5   1. 5.
+  !
+  MAP_CLASS_LOAD = no
+      UNITS = KG/M2
+      CONTOUR_LEVELS =  0.1  0.5   1. 5.  10. 50.
+  !
+  MAP_CLASS_WET = yes
+      UNITS = KG/M2
+      CONTOUR_LEVELS =  0.1  0.5   1. 5.
+  !
+  MAP_DEPOSIT_THICKNESS = yes
+      DEPOSIT_DENSITY_(KG/M3) = 1000.0  (Default value 1000.)
+      UNITS = MM                          (Possibilities: MM/CM/M)
+      CONTOUR_LEVELS      = 0.1  0.5  1. 5. 10.
+  !
+  !   Ground level variables
+  !
+  MAP_CONCE_GROUND = no
+      UNITS = G/M3
+      CONTOUR_LEVELS  =  0.001 0.01 0.1 1.
+  !
+  MAP_PMxx_GROUND = no
+      UNITS = G/M3
+      CONTOUR_LEVELS  =  1d-5 1d-4 1d-3
+  !
+  !   Airborne variables
+  !
+  MAP_COLUMN_MASS = no
+      UNITS = G/M2
+      CONTOUR_LEVELS  =  1. 10. 100.
+  !
+  MAP_COLUMN_PMxx = no
+      UNITS = G/M2
+      CONTOUR_LEVELS  =  0.1 1. 10. 100.
+  !
+  MAP_FLIGHT_LEVEL = no
+      UNITS = G/M3
+      CONTOUR_LEVELS  =  0.001 0.01 0.1
+  !
+  MAP_AOD = no
+      UNITS = NONE
+      CONTOUR_LEVELS  =  0.1 0.25 0.5 0.75 1 2
+
+
