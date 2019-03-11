@@ -70,25 +70,23 @@ mv T2_stor.txt MakaturingVEI4.txt
 ```sh
 cp runTephraProb.sh runMakaturingVEI4.sh
 ```
-
-5. Get the number of lines contained in `MakaturingVEI4.txt`, divide this number by 24 and round that to the upper integer. Let's call this number `nline`;
-
-6. Split `MakaturingVEI4.txt` by `nline`. `nline` is the number of Tephra2 commands that each sub-file will contains, which will dictate how many nodes are required. This really depends on how big the computation domain is (larger = longer computation for each run of Tephra2), but as a starting point you can go with 10. So get the number of lines contained in `MakaturingVEI4.txt`, divide this number by 24 and round that to the upper integer, which will be `nline`. The following command considers that `MakaturingVEI4.txt` contains 1000 lines and is split in 10 sub-files containing 100 lines each, whic produces files named `MakaturingVEI4.txt00` to `MakaturingVEI4.txt09`:
+ 
+5. Split `MakaturingVEI4.txt` by `nline`. `nline` is the number of Tephra2 commands that each sub-file will contains, which will dictate how many nodes are required. This really depends on how big the computation domain is (larger = longer computation for each run of Tephra2), but as a starting point you can go with 10. So get the number of lines contained in `MakaturingVEI4.txt`, divide this number by 24 and round that to the upper integer, which will be `nline`. The following command considers that `MakaturingVEI4.txt` contains 1000 lines and is split in 10 sub-files containing 100 lines each, whic produces files named `MakaturingVEI4.txt00` to `MakaturingVEI4.txt09`:
 
 ```sh
 split -l 100 -a 2 -d MakaturingVEI4.txt MakaturingVEI4.txt
 ```
 
-7. Edit `runMakaturingVEI4.sh` (e.g. `vi runMakaturingVEI4.sh`) and replace `T2_stor.txt$chunk` by `MakaturingVEI4.txt$chunk`
+6. Edit `runMakaturingVEI4.sh` (e.g. `vi runMakaturingVEI4.sh`) and replace `T2_stor.txt$chunk` by `MakaturingVEI4.txt$chunk`
 
-8. Submit the job using:
+7. Submit the job using:
 ```sh
 qsub -t 0-9 runMakaturingVEI4.sh
 ```
 
-9. Check the job status with `qstat`. Upon completion, transfer the content of `RUNS/runName/runNumber/OUT/` back to your local TephraProb folder and processd with the post-processing steps.
+8. Check the job status with `qstat`. Upon completion, transfer the content of `RUNS/runName/runNumber/OUT/` back to your local TephraProb folder and processd with the post-processing steps.
 
-10. Clean your mess! Remove the temporary files and archive your run Files:
+9. Clean your mess! Remove the temporary files and archive your run Files:
 ```sh
 rm *.txt*
 ```
