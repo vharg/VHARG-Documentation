@@ -73,17 +73,17 @@ cp runTephraProb.sh runMakaturingVEI4.sh
 
 5. Get the number of lines contained in `MakaturingVEI4.txt`, divide this number by 24 and round that to the upper integer. Let's call this number `nline`;
 
-6. Split `MakaturingVEI4.txt` by `nline` with the following command (replace `nline`), which should create 24 files named `MakaturingVEI4.txt00` to `MakaturingVEI4.txt23`:
+6. Split `MakaturingVEI4.txt` by `nline`. `nline` is the number of Tephra2 commands that each sub-file will contains, which will dictate how many nodes are required. This really depends on how big the computation domain is (larger = longer computation for each run of Tephra2), but as a starting point you can go with 10. So get the number of lines contained in `MakaturingVEI4.txt`, divide this number by 24 and round that to the upper integer, which will be `nline`. The following command considers that `MakaturingVEI4.txt` contains 1000 lines and is split in 10 sub-files containing 100 lines each, whic produces files named `MakaturingVEI4.txt00` to `MakaturingVEI4.txt09`:
 
 ```sh
-split -l nline -a 2 -d MakaturingVEI4.txt MakaturingVEI4.txt
+split -l 100 -a 2 -d MakaturingVEI4.txt MakaturingVEI4.txt
 ```
 
 7. Edit `runMakaturingVEI4.sh` (e.g. `vi runMakaturingVEI4.sh`) and replace `T2_stor.txt$chunk` by `MakaturingVEI4.txt$chunk`
 
 8. Submit the job using:
 ```sh
-qsub -t 0-23 runMakaturingVEI4.sh
+qsub -t 0-9 runMakaturingVEI4.sh
 ```
 
 9. Check the job status with `qstat`. Upon completion, transfer the content of `RUNS/runName/runNumber/OUT/` back to your local TephraProb folder and processd with the post-processing steps.
@@ -94,6 +94,32 @@ rm *.txt*
 ```
 
 ## Tips
+
+### Changing the queue
+When connecting to Komodo, the welcome message displays the usage of all queues. You can adapt `runTephraProb.sh` to choose the least busy queue. You have 3 options:
+- `q12`: 12 CPUs per node
+- `q16`: 16 CPUs per node
+- `q24`: 24 CPUs per node
+
+To chose another queue, edit `runTephraProb.sh` with `vi`. For instance, using the `q16` queue would require `runTephraProb.sh` to look like (i.e. you need to change `nCPU` in 4 places, where `nCPU` is either 12, 16 or 24):
+
+```sh
+#!/bin/bash
+
+#PBS -N TephraProb
+#PBS -j oe
+#PBS -V
+#PBS -l nodes=1:ppn=16
+#PBS -q q16
+
+module load openmpi/1.4.5-gnu
+
+cd $PBS_O_WORKDIR
+
+chunk=`printf "%02d" $PBS_ARRAYID`
+
+mpirun -np 16 -machinefile $PBS_NODEFILE parallel -j 16 -a T2_stor.txt$chunk
+```
 
 ### RSYNC Examples
 
