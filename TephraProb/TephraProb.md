@@ -27,7 +27,7 @@ TephraProb is installed on Komodo in `/home/volcano/TephraProb/`.
 
 ## Main procedure
 
-1. Transfer your run, grid and wind files on the cluster according to the hierarchy below. Note that **not** all files of the `RUNS/`, `GRID/` and `WIND` folders need to be transferred;
+1. Transfer your run, grid and wind files on the cluster according to the hierarchy below. Note that **not** all files of the `RUNS/`, `GRID/` and `WIND/` folders need to be transferred;
 
 ```
 ROOT
