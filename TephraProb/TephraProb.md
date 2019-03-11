@@ -9,6 +9,9 @@ There is a relatively easy way to parallelise TephraProb on a computer cluster w
 4. Retrieve the output files from the cluster to the local computer
 5. Post-process the output files (e.g. probability calculations) locally
 
+
+TephraProb is installed on Komodo in `/home/volcano/TephraProb/`.
+
 | :warning: Before starting |
 | ---- |
 | 1. This procedure starts only when scenarios have been generated locally. You should be pretty much ready to hit the `Run Tephra2` in TephraProb. |
