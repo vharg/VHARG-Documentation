@@ -12,20 +12,28 @@ There is a relatively easy way to parallelise TephraProb on a computer cluster w
 
 TephraProb is installed on Komodo in `/home/volcano/TephraProb/`.
 
-| :warning: Before starting |
-| ---- |
-| 1. This procedure starts only when scenarios have been generated locally. You should be pretty much ready to hit the `Run Tephra2` in TephraProb. |
-| 2. Check that your scenarios was setup with the `write_conf` and `write_gs` variables enabled | 
-| 3. This procedure requires all TephraProb files and folder to be organised in their original hierarchy and names |
-| 4. TEPHRA2 should be compiled on the cluster |
+## Before starting
 
-| :boom: Good to know |
-| ---- |
-| Transfering Run folders to and from Komodo can take some time due to all individual files and sub-folders. However, most files are not needed, and the command `rsync` becomes handy as it allows ignoring folders |
+### :warning: Prerequisite
 
+1. This procedure starts only when scenarios have been generated locally. You should be pretty much ready to hit the `Run Tephra2` in TephraProb;
+2. Check that your scenarios was setup with the `write_conf` and `write_gs` variables enabled;
+3. This procedure requires all TephraProb files and folder to be organised in their original hierarchy and names;
+4. TEPHRA2 should be compiled on the cluster.
+
+
+### Windows users
+
+If TephraProb was run on Windows, you might have to alter your `T2_stor.txt` file. Each line contains a separate command to Tephra2 with the paths to the configuration, wind, grid, grain-size and output files. :warning: All path in this file must be relative to the root folder of TephraProb, so any line that contains an absolute path must be trimmed. This can easily be done with any *Find & Replace* command of any text editor. For instance:
+
+```sh
+C:/Documents/TephraProb/RUNS/...	# Wrong
+RUNS/...							# Right
+```
 
 
 ## Main procedure
+
 
 1. Transfer your run, grid and wind files on the cluster according to the hierarchy below. Note that **not** all files of the `RUNS/`, `GRID/` and `WIND/` folders need to be transferred;
 
@@ -49,6 +57,9 @@ ROOT
 ```
 
 2. Connect to the cluster and navigate at the root of TephraProb, i.e. in the same directory as `T2_stor.txt`;
+```sh
+ssh userName@komodo.ase.ntu.edu.sg 
+```
 
 3. Rename `T2_stor.txt` to a relevant run name, e.g. `MakaturingVEI4.txt`:
 ```sh
@@ -68,15 +79,19 @@ cp runTephraProb.sh runMakaturingVEI4.sh
 split -l nline -a 2 -d MakaturingVEI4.txt MakaturingVEI4.txt
 ```
 
-7. Edit `runMakaturingVEI4.sh` and replace `T2_stor.txt$chunk` by `MakaturingVEI4.txt$chunk`
+7. Edit `runMakaturingVEI4.sh` (e.g. `vi runMakaturingVEI4.sh`) and replace `T2_stor.txt$chunk` by `MakaturingVEI4.txt$chunk`
 
 8. Submit the job using:
 ```sh
-sbatch -t 0-23 runMakaturingVEI4.sh
+qsub -t 0-23 runMakaturingVEI4.sh
 ```
 
 9. Check the job status with `qstat`. Upon completion, transfer the content of `RUNS/runName/runNumber/OUT/` back to your local TephraProb folder and processd with the post-processing steps.
 
+10. Clean your mess! Remove the temporary files and archive your run Files:
+```sh
+rm *.txt*
+```
 
 ## Tips
 
