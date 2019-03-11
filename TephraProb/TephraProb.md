@@ -71,7 +71,7 @@ mv T2_stor.txt MakaturingVEI4.txt
 cp runTephraProb.sh runMakaturingVEI4.sh
 ```
  
-5. Split `MakaturingVEI4.txt` by `nline`. `nline` is the number of Tephra2 commands that each sub-file will contains, which will dictate how many nodes are required. This really depends on how big the computation domain is (larger = longer computation for each run of Tephra2), but as a starting point you can go with 10. So get the number of lines contained in `MakaturingVEI4.txt`, divide this number by 24 and round that to the upper integer, which will be `nline`. The following command considers that `MakaturingVEI4.txt` contains 1000 lines and is split in 10 sub-files containing 100 lines each, whic produces files named `MakaturingVEI4.txt00` to `MakaturingVEI4.txt09`:
+5. Split `MakaturingVEI4.txt` by `nline`. `nline` is the number of Tephra2 commands that each sub-file will contains, which will dictate how many nodes are required. This really depends on how big the computation domain is (larger = longer computation for each run of Tephra2), but as a starting point you can start with using 10 nodes. So get the number of lines contained in `MakaturingVEI4.txt`, divide this number by 10 and round that to the upper integer, which will be `nline`. The following command considers that `MakaturingVEI4.txt` contains 1000 lines and is split in 10 sub-files containing 100 lines each, which produces files named `MakaturingVEI4.txt00` to `MakaturingVEI4.txt09`:
 
 ```sh
 split -l 100 -a 2 -d MakaturingVEI4.txt MakaturingVEI4.txt
