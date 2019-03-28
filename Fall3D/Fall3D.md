@@ -36,7 +36,7 @@ mkdir Makaturing
 cd Makaturing
 ```
 
-3. Copy template files to your folder:
+1. Copy template files to your folder:
 
 ```
 cp ../ecmwf_data.py ./
@@ -85,16 +85,30 @@ cp ../../Input_Template.inp Makaturing.inp
 ../../fall3d-7.3.1/Scripts/Script-SetSrc Makaturing
 ```
 
-1. Do a test run on one node. See if the job runs using ```qstat```. If it does, then cancel it using ```qdel jobId``` and go to next step
+### Test run
+5. Do a test run on one node. See if the job runs using ```qstat```. If it does, then cancel it using ```qdel jobId``` and go to next step
 ```
 qsub -x -I;  ../../fall3d-7.3.1/Scripts/Script-Fall3d_ser Makaturing
 ```
-6. Resubmit using the queue. First copy the queue script, edit the header and the run name, then submit it: 
+
+### Run on a single CPU
+6. To use a single CPU, resubmit using the queue. First copy the queue script ```QueueScript_SingleNode.sh```, edit the header and the run name, then submit it: 
 ```
 cp ../../QueueScript_SingleNode.sh . 
 qsub QueueScript_SingleNode.sh
 ```
-7.  Post-process results using GMT (typed from the correct run folder): 
+
+### Run in parallel
+7. To use FALL3D in parallel, copy the queue script ```QueueScript_Par.sh```, edit the header and the run name. The ```ppn``` variable defines the number of processor used per node, which has to be adapted based on the number of granulometry bins defined in the run configuration file. 
+
+```
+cp ../../QueueScript_Par.sh
+qsub QueueScript_Par.sh
+```
+
+###  Post processing & visualisation
+
+8.  Post-process results using GMT (typed from the correct run folder): 
 ```
 ../../fall3d-7.3.1/Scripts/Script-Fall3d2GMT Makaturing
 ```  

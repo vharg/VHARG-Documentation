@@ -1,0 +1,120 @@
+#!/bin/sh
+#----------------------------------------------------------------------------
+#   UNIX/LINUX SHELL SCRIPT FOR FALL3D PARALLEL VERSION (compatible with pbs)
+# ---------------------------------------------------------------------------
+#
+# File: Utilities/ConfigScripts/Script-Fall3d_par.  Generated from Script-Fall3d_par.in by configure.
+# DO NOT MODIFY (it is generated automatically by configure)
+#
+# This file was modified by Edwin and Seb for Komodo - 2019-03-28
+#
+# Check if PROBLEMNAME is set, otherwise get from the command line
+if [ -z $PROBLEMNAME ]; then
+    PROBLEMNAME=$1
+fi
+# Check if NCPU is set, otherwise get from the command line
+if [ -z $NCPU ]; then
+    NCPU=$2
+fi
+# Check if NCPUGROUPS is set, otherwise get from the command line
+if [ -x $NCPUGROUPS ]; then
+    NCPUGROUPS=$3
+fi
+
+# Added by Edwin
+# As previously written, PBS_NODEFILE is accessible to QueueScript_Par.sh but not to Script-Fall3d_par,
+# so we added it as a fourth argument in QueueScript_Par.sh
+PBS_NODEFILE=$4
+
+
+# Removed by Edwin -> SETNODEFILE is not PBS_NODEFILE
+# Check if NODEFILE is set, otherwise get from PBS
+#if [ ! -z $NODEFILE ]; then
+#    SETNODEFILE="-f $NODEFILE"     # Get from the environment
+#elif [ ! -z $PBS_NODEFILE ]; then
+#    NODEFILE=$PBS_NODEFILE         # Get from pbs
+#    SETNODEFILE="-f $NODEFILE"
+#else
+#    SETNODEFILE=""                 # Nodefile not set
+#fi
+#
+MPIEXEC=mpiexec
+EXEPROG=Fall3d_par
+VERSION=7.3.1
+
+#
+if [ -z $PROBLEMNAME ] ; then
+  echo 'Error: Specify the problem name'
+  echo 'Usage: Script-Fall3d_par PROBLEMNAME NCPU NCPUGROUPS'
+  exit
+fi
+#
+if [ -z $NCPU ] ; then
+  echo 'Error: Specify NCPU'
+  echo 'Usage: Script-Fall3d_par PROBLEMNAME NCPU NCPUGROUPS'
+  exit
+fi
+#
+if [ -z $NCPUGROUPS ] ; then
+  echo 'Error: Specify NCPUGROUPS'
+  echo 'Usage: Script-Fall3d_par PROBLEMNAME NCPU NCPUGROUPS'
+  exit
+fi
+#
+prefix=/home/volcano/FALL3D/fall3d-7.3.1
+exec_prefix=${prefix}
+EXEPATH=${exec_prefix}/bin/$EXEPROG             # Path of the executable
+RUNDIR=/home/volcano/FALL3D/Runs
+#
+PROBLEMDIR=$RUNDIR/$PROBLEMNAME       # Problem directory
+#
+if [ ! -x $EXEPATH ] ; then
+  echo Cannot find executable $EXEPATH
+  exit
+fi
+#
+if [ ! -d $PROBLEMDIR ] ; then
+  echo Cannot find PROBLEMDIR=$PROBLEMDIR
+  exit
+fi
+#
+#
+#  1. Paths of Fall3d input files
+#
+FILEINP=$PROBLEMDIR/$PROBLEMNAME.inp     # input file
+FILESRC=$PROBLEMDIR/$PROBLEMNAME.src     # input file (source)
+FILEGRN=$PROBLEMDIR/$PROBLEMNAME.grn     # input file (granulometry)
+FILEDBS=$PROBLEMDIR/$PROBLEMNAME.dbs.nc  # input file (Database, binary)
+#
+# Check existence of input files
+if [ ! -f $FILEINP ] ; then
+  echo Cannot find FILEINP=$FILEINP
+  exit
+fi
+#
+if [ ! -f $FILESRC ] ; then
+  echo Cannot find FILESRC=$FILESRC
+  exit
+fi
+#
+if [ ! -f $FILEGRN ] ; then
+  echo Cannot find FILEGRN=$FILEGRN
+  exit
+fi
+#
+if [ ! -f $FILEDBS ] ; then
+  echo Cannot find FILEDBS=$FILEDBS
+  exit
+fi
+#
+#  2. Paths of Fall3d output files
+#
+FILELOG=$PROBLEMDIR/$PROBLEMNAME.$EXEPROG-$VERSION.log # output file (log info file)
+FILERES=$PROBLEMDIR/$PROBLEMNAME.res                  # output files (netCDF & MP binary)
+FILEPTS=$PROBLEMDIR/$PROBLEMNAME.pts                  # output files (track points)
+#
+#  3. Launches the executable
+#
+# Now use MPIRUN instead
+#$MPIEXEC -n $NCPU $SETNODEFILE $EXEPATH $FILEINP $FILESRC $FILEGRN $FILEDBS $FILELOG $FILERES $FILEPTS $NCPUGROUPS
+mpirun -np $NCPU -machinefile $PBS_NODEFILE $EXEPATH $FILEINP $FILESRC $FILEGRN $FILEDBS $FILELOG $FILERES $FILEPTS $NCPUGROUPS
