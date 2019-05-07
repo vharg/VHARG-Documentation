@@ -12,7 +12,7 @@ The required software are:
 You might have to Google them to download them!
 
 ## Choose a map
-1. Visit [this page](https://wiki.openstreetmap.org/wiki/OSM_Map_On_Garmin/Download) for an overview of the providers of OpenStreetMap data (OSM) for Garmin GPS. The prefered website is [garmin.openstreetmap.nl](http://http://garmin.openstreetmap.nl).
+1. Visit [this page](https://wiki.openstreetmap.org/wiki/OSM_Map_On_Garmin/Download) for an overview of the providers of OpenStreetMap data (OSM) for Garmin GPS. The prefered website is [garmin.openstreetmap.nl](http://garmin.openstreetmap.nl).
 2. There are 3 main options of file formats:
    - ``.exe`` is the format of map installer for Windows
    - ``.gmapi`` is the format of map installer for Mac
