@@ -1,10 +1,10 @@
-##Convert DEM into GRASS format 
+## Convert DEM into GRASS format 
 
 GRASS is the preferred DEM format for use in Titan2D. GeoTIFF or other format DEM's can be converted to GRASS using a combination of GRASS GIS, GMT, and GDAL commands. 
 
 * Open a terminal and navigate to the DEM you want to convert, in this case the DEM is in GeoTIFF format. 
 	
-###Convert the DEM to UTM coordinate system:
+### Convert the DEM to UTM coordinate system:
 
 ``` bash
 gdalwarp -t_srs EPSG:32748 Gede.tif Gede_UTM.tif
@@ -32,11 +32,11 @@ Center      (  720123.689, 9249141.530) (106d59'30.04"E,  6d47'19.83"S)
 ```
 * Information on any of the GDAL commands can be gained through 'commandname --help' i.e `gdalwarp --help` 
 	
-###Convert from GeoTIFF to grd DEM format using GMT 
+### Convert from GeoTIFF to grd DEM format using GMT 
 
 ```gdal_translate -of GMT Gede_UTM.tif Gede_UTM.grd``` 
 	
-###Resample the DEM
+### Resample the DEM
 Click on the GMT application and a new GMT terminal will open. Resample the DEM so that the corner coordinates are whole numbers and a multiple of the grid resolution (pixel size). We can also change the grid resolution here, at the moment mine is: `Pixel Size = (8.291246648232578,-8.291246648232757)` but I will change it to 10/10 to make it easier to work with.
 
 ```grdsample Gede_UTM.grd -GGede_10m -I10/10 -R700000/740000/9230000/9268000 -r -V```
@@ -45,13 +45,13 @@ Click on the GMT application and a new GMT terminal will open. Resample the DEM 
 	
 * Use `grdinfo Gede_10m` to check that this has worked correctly, -r converts to pixel node registration, check this along with the grid bounds and the increment. 
 	
-###Convert NetCDF grid to binary
+### Convert NetCDF grid to binary
 * Still in the GMT environment, use:
 
 ```grdconvert Gede_10m Gede_10m.bin=bf ``` 
 	
 
-###Set up the GRASS location
+### Set up the GRASS location
 * Now we need to set up the Location in which to store the GRASS DEM. Open GRASS, either by typing into the terminal, or by clicking on the icon in Applications. Then follow through the steps on the GUI  to set up the location.
 	* Navigate to the database directory you want to store the data in.
 	* Select GRASS location, make a new location
