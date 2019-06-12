@@ -12,6 +12,7 @@ This repository compiles documentation and tutorials for relevant models and too
 - [Titan2D](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d) 
 	- [Convert DEM](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/ConvertToGRASS.md) 
 	- [Run Titan2d](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/RunTitan2d.md)
+	- [Visualise Outputs](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/Visualisation.md)
 	 
 ## Tools
 - [Upload OSM maps on Garmin GPS](https://github.com/vharg/VHARG-Documentation/blob/master/Tools/garmin.md)
