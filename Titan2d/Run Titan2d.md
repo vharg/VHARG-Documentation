@@ -33,8 +33,8 @@ Gede1
 
 
 	```
-#PBS -l nodes=1:ppn=24
-#PBS -q q24
+PBS -l nodes=1:ppn=24
+PBS -q q24
 ```
 
 6. The file `simulation.py` stores the main information related to the run, this file can be copied and edited as opposed to using the GUI to setup a new run. Be sure to also edit the file giving information about the source you have selected (Gede1.ascpile etc). **Another note on the simulation.py file, (if this has been created by titan), line 10, delete one of the = signs so that region_limits=()**
