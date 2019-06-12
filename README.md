@@ -13,6 +13,10 @@ This repository compiles documentation and tutorials for relevant models and too
 	- [Convert DEM](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/ConvertToGRASS.md) 
 	- [Run Titan2d](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/RunTitan2d.md)
 	- [Visualise Outputs](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/Visualisation.md)
+		- [Visu-Titan2D-single-tecplot](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/Visu_Titan2D_single_tecplot.bash)
+		- [Convert-tecplot-loop](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/Convert_tecplot_loop-2.bash)
+		- [Visu-Titan2D-impacted-area](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/Visu_Titan2D_impacted_area.bash)
+
 	 
 ## Tools
 - [Upload OSM maps on Garmin GPS](https://github.com/vharg/VHARG-Documentation/blob/master/Tools/garmin.md)
