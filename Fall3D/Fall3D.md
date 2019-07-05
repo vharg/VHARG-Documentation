@@ -99,8 +99,17 @@ qsub QueueScript_SingleNode.sh
 ```
 
 ### Run in parallel
-7. To use FALL3D in parallel, copy the queue script ```QueueScript_Par.sh```, edit the header and the run name. The ```ppn``` variable defines the number of processor used per node, which has to be adapted based on the number of granulometry bins defined in the run configuration file. 
+:warning: **Note:** The parallel approach has been changed, so make sure you have the latest scripts!
 
+7. To use FALL3D in parallel, copy the queue script ```QueueScript_Par.sh```, edit the header and the run name (see [this page](https://github.com/vharg/VHARG-Documentation/blob/master/Cluster/komodo.md) for more details). The one thing to remember here is that **the number of nodes required must be equal to the number of grain-size bins**. In the header line ` #PBS -l nodes=9:ppn=24`, make sure that:
+   - `nodes` is equal to `NUMBER_OF_CLASSES` in the GRANULOMETRY section of `run_name.inp`
+   - ```ppn``` is adjusted as a function of the selected queue (e.g. 12 for `#PBS -q q12`)
+
+8. Edit the following variables:
+    - `NGROUP`: The number of nodes, i.e. the number of grain-size classes
+    - `NCPU`: The **total** number of CPUs used, i.e. `NGROUP`*`ppn`
+    - Change the run name, e.g., `Makaturing`
+ 
 ```
 cp ../../QueueScript_Par.sh
 qsub QueueScript_Par.sh
@@ -108,7 +117,7 @@ qsub QueueScript_Par.sh
 
 ###  Post processing & visualisation
 
-8.  Post-process results using GMT (typed from the correct run folder): 
+1.  Post-process results using GMT (typed from the correct run folder): 
 ```
 ../../fall3d-7.3.1/Scripts/Script-Fall3d2GMT Makaturing
 ```  
