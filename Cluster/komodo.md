@@ -34,6 +34,13 @@ qsub batchFile.sh
 #### Tracking errors
 Errors are recorded in a *log* file located in `~/jobId.komodo2.des.OU`. If there is a problem with the job, i.e. the job rapidly changes from `Q` to `R` to `C`, checking the log file is likely to help identifying the error.
 
+### Check node usage
+To check how much a given node is used by a job:
+1. Run `checkjob jobid`, where `jobid` is the job number. This will input a list of the nodes being used, typically something like `[des-compute69-ib0:24][des-compute68-ib0:24]`
+2. SSH into one of the nodes: `ssh  des-compute69-ib0`
+3. Once in, run `top`
+
+
 ## Accessing remote files
 
 ### Using a graphical interface

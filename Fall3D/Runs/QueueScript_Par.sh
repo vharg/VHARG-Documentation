@@ -15,5 +15,5 @@ NGROUP=9
 
 # Here job name is kelud14_fine, change!
 date
-/home/volcano/FALL3D/fall3d-7.3.1/Scripts/Script-Fall3d_par kelud14_fine $NCPUS $NGROUP $PBS_NODEFILE
+`/home/volcano/FALL3D/fall3d-7.3.1/Scripts/Script-Fall3d_par kelud14_fine $NCPUS $NGROUP $PBS_NODEFILE`
 date

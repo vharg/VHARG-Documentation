@@ -107,7 +107,7 @@ qsub QueueScript_SingleNode.sh
 
 8. Edit the following variables:
     - `NGROUP`: The number of nodes, i.e. the number of grain-size classes
-    - `NCPU`: The **total** number of CPUs used, i.e. `NGROUP`*`ppn`
+    - `NCPU`: Do not change! #The **total** number of CPUs used, i.e. `NGROUP`*`ppn`
     - Change the run name, e.g., `Makaturing`
  
 ```
