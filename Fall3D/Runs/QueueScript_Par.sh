@@ -10,7 +10,7 @@
 module load GMT/4.5.8/gnu
 
 
-NCPUS=216 
+NCPUS=`cat $PBS_NODEFILE|wc -l`
 NGROUP=9
 
 # Here job name is kelud14_fine, change!
