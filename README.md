@@ -16,8 +16,8 @@ This repository compiles documentation and tutorials for relevant models and too
 		
 ## GIS Tricks
 ### QGIS3
-- [Add Google basemap to GIS3 projects])(https://github.com/vharg/VHARG-Documentation/blob/master/GIS/googleMap_QGIS.md)
-- [Georeference raster])(https://github.com/vharg/VHARG-Documentation/blob/master/GIS/georeferencingQGIS.md)
+- [Add Google basemap to GIS3 projects](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/googleMap_QGIS.md)
+- [Georeference raster](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/georeferencingQGIS.md)
 
 
 ## Tools

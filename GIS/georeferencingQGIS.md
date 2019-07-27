@@ -9,7 +9,7 @@ The required software are:
 
 The **Georeferencer plugin** can be installed directly within QGIS from the `Plugins > Manage and Install Plugins` menu on the top bar of QGIS. There, search for `Georeferencer GDAL`. The user manual, including a detailed procedure, can be found [here](https://docs.qgis.org/3.4/en/docs/user_manual/plugins/plugins_georeferencer.html).
 
-## Imporant concepts
+## Important concepts
 A critical aspect of georeferencing is understanding the **relationship between the coordinate system of the source dataset and the target project**. Here, all coordinate systems use the [ESPG reference system](https://epsg.io/). The idea behind georeferencing is to identify **Ground Control Points** (GCP) on the raster to be georeferenced and tie them to a known coordinate. There are usually two cases when georeferencing a dataset.
 
 ### Case 1: The raster contains coordinates
