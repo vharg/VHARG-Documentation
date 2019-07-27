@@ -1,6 +1,6 @@
 # Install maps on a Garmin GPS
 
-This repository compiles documentation and tutorials for relevant models and tools used by the Volcanic Hazard and Risk Group of ASE/NTU.
+This procedure illustrates how to install OpenStreetMap basemaps on a Garmin GPS device.
 
 ## Required software
 The required software are:

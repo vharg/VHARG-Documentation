@@ -14,8 +14,12 @@ This repository compiles documentation and tutorials for relevant models and too
 	- [Run Titan2d](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/RunTitan2d.md)
 	- [Visualise Outputs](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/Visualisation.md)
 		
+## GIS Tricks
+### QGIS3
+- [Add Google basemap to GIS3 projects])(https://github.com/vharg/VHARG-Documentation/blob/master/GIS/googleMap_QGIS.md)
+- [Georeference raster])(https://github.com/vharg/VHARG-Documentation/blob/master/GIS/georeferencingQGIS.md)
 
-	 
+
 ## Tools
 - [Upload OSM maps on Garmin GPS](https://github.com/vharg/VHARG-Documentation/blob/master/Tools/garmin.md)
 
