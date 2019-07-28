@@ -21,3 +21,18 @@ Alternatively, if the raster does not contain coordinates or the coordinate syst
 ## Obtaining a basemap
 A basemap is necessary to extract the coordinates of a GCP. Several options are possible, but check [this page](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/googleMap_QGIS.md) to use a Google basemap.
 
+## Steps
+1. Make a screenshot of the map to digitise
+2. In QGIS, make a new project and make sure it is set to `EPSG:4326` (look at the bottom right corner of the main window)
+3. Add a basemap
+4. From the top menu, choose `Raster > Georeferencer`
+5. Open a raster. If the coordinate system of the raster is known, choose it. Else, choose `EPSG:4326`
+6. With the `Add point` tool on, click on the map. The point coordinates are known, enter them, else use the `From map canevas` tool and select the location of this point on the basemap
+7. When ~10 points have been selected, click the `Transformation Settings` icon. 
+   - Provide a name and path for the output raster
+   - Make sure the `Load in QGIS` option is activated
+   - Leave other parameters to default and click ok
+8. Click the `Start Georeferencing` icon
+
+Repeat adding points until the apparent accuracy of the georeferenced raster is appropriate.
+
