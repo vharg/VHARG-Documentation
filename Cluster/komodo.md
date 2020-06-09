@@ -18,7 +18,7 @@ Upon entering your password, you will be connected to your `HOME` folder, which 
 ### Jobs
 *Jobs* are model runs that are *submitted* to the master node, which will dispatch it to the slave nodes for computations. Upon submission, the job joins a *queue* that manages which nodes are available. Three commands are useful:
 - `qsub`: Submits the job. Each job is assigned a `job ID`, for instance `96326`
-- `qstat`: Shows the jobs that are running on the cluster. To see only your own jobs, use `qstat -u userName`. Jobs can be in either of these four modes:
+- `qstat`: Shows the jobs that are running on the cluster. To see only your own jobs, use `qstat -u userName`. Other options are given by `qstat -f` and `qstat -t`. Jobs can be in either of these four modes:
   - `R`: Running
   - `C`: Cancelled
   - `Q`: Queued - i.e. the job is delayed in the queue because all the nodes are busy
@@ -36,7 +36,7 @@ Errors are recorded in a *log* file located in `~/jobId.komodo2.des.OU`. If ther
 
 ### Check node usage
 To check how much a given node is used by a job:
-1. Run `checkjob jobid`, where `jobid` is the job number. This will input a list of the nodes being used, typically something like `[des-compute69-ib0:24][des-compute68-ib0:24]`
+1. Run `checkjob jobid`, where `jobid` is the job number. This will input a list of the nodes being used, typically something like `[des-compute69-ib0:24][des-compute68-ib0:24]`.
 2. SSH into one of the nodes: `ssh  des-compute69-ib0`
 3. Once in, run `top`
 
