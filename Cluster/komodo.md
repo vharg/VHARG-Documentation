@@ -4,6 +4,8 @@ Heavy computations are performed on a computer *cluster*. Clusters comprise diff
 
 A cluster is composed of a *master* node, which is what you will interact with, and *slave* nodes. The role of the master node is to dispatch the computing tasks, called *jobs*, to the slave nodes. No heavy computation takes place on the master node.
 
+[The NTU HPC User's group website](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2)
+
 
 ## Introduction to Komodo
 ### Connection to Komodo
@@ -40,6 +42,10 @@ To check how much a given node is used by a job:
 2. SSH into one of the nodes: `ssh  des-compute69-ib0`
 3. Once in, run `top`
 
+### Gekko - request an interactive node
+```
+qsub -q q32_eos -P eos_susanna.jenkins -l select=1:ncpus=32 -I
+```
 
 ## Accessing remote files
 
@@ -47,3 +53,9 @@ To check how much a given node is used by a job:
 Third-party softwares can be used to browse and interact with your files on Komodo. Options include:
 - [Cyberduck](https://cyberduck.io) on MacOS
 - [WinSCP](https://winscp.net/eng/download.php) on Windows
+
+
+## Gekko documentation
+- [General documentation](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2)
+- [Matlab on Gekko](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2/SitePages/Running-MATLAB-on-Gekko.aspx)
+- [Specific to Parallel Computing using MATLAB Gekko](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2/Shared%20Documents/Getting%20Started%20with%20Parallel%20Computing%20using%20MATLAB%20Gekko%20v1-0.pdf)
