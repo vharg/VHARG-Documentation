@@ -59,3 +59,12 @@ Third-party softwares can be used to browse and interact with your files on Komo
 - [General documentation](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2)
 - [Matlab on Gekko](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2/SitePages/Running-MATLAB-on-Gekko.aspx)
 - [Specific to Parallel Computing using MATLAB Gekko](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2/Shared%20Documents/Getting%20Started%20with%20Parallel%20Computing%20using%20MATLAB%20Gekko%20v1-0.pdf)
+
+## q128
+```
+export OMP_NUM_THREADS=1
+export MKL_DEBUG_CPU_TYPE=5
+
+mpirun-np 128 -genvI_MPI_DEBUG=5 -genvI_MPI_PIN=1 -genvKMP_AFFINITY verbose,granularity=fine,compact _program-name
+
+```
