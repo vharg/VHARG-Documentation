@@ -17,7 +17,7 @@ https://cds.climate.copernicus.eu/api-how-to
 The API key should be placed in your account here: ```~/.cdsapirc```
 
 ## Download wind data
-Go to: ```https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-pressure-levels?tab=form``` and choose what wind data you want.
+Go to: https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-pressure-levels?tab=form and choose what wind data you want.
 Typically, you need 'geopotential', 'U-component of wind', and 'V-component of wind' to get wind speed and direction with height for a volcano.
 You can choose the area to cover, years and hourly or less temporal resolution.
 
