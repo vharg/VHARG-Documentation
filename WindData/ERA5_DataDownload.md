@@ -34,3 +34,9 @@ To run it, ssh to a node (do not run on the main master node!): ```qsub -I```
 navigate to where you were: ```cd /home/volcano/WindDownload``` 
 
 and to run, type (for the example above): ```python3 ERA5_Hrly_2010-2019_FujiDownload.py```
+
+|:warning: The size limit is pretty small... |
+|---|
+| You will see a warning on the website if you are trying to download too many fields. If you see this, you'll need to separate your request into multiple requests, typically by year or area, or hPa. They can be concatenated together later, if needed.| 
+
+
