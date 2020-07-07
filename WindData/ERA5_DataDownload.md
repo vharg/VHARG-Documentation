@@ -24,8 +24,13 @@ You can choose the area to cover, years and hourly or less temporal resolution.
 Click 'NetCDF' as the format and then 'Show API request'
 
 Copy and paste this request into a new file on the cluster that describes what you're downloading, e.g.:
+
 ```vi ERA5_Hrly_2010-2019_FujiDownload.py```
+
 Press ```Esc```, then ```:wq``` to save the file
 
 To run it, ssh to a node (do not run on the main master node!): ```qsub -I```
-navigate to where you were: ```cd /home/volcano/WindDownload``` and to run, type (for the example above): ```python3 ERA5_Hrly_2010-2019_FujiDownload.py```
+
+navigate to where you were: ```cd /home/volcano/WindDownload``` 
+
+and to run, type (for the example above): ```python3 ERA5_Hrly_2010-2019_FujiDownload.py```
