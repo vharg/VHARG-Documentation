@@ -16,7 +16,7 @@ This repository compiles documentation and tutorials for relevant models and too
 	- [Visualise Outputs](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/Visualisation.md)
 		
 ## Wind data
-- [ERA 5 download](https://github.com/vharg/VHARG-Documentation/blob/master/WindData/ERA5_DataDownload)
+- [ERA 5 download](https://github.com/vharg/VHARG-Documentation/blob/master/WindData/ERA5_DataDownload.md)
 
 ## GIS Tricks
 ### QGIS3
