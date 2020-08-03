@@ -28,5 +28,5 @@ Some things to consider:
 
 :warning: Warning: Be critical! |
 |---|
-This method is intended to give you insight into how well Tephra2 can fit the data and with what parameters, different sets of parameters. It isn't ever going to give you the definitive answer, and should be considered critically. 
+This method is intended to give you insight into how well Tephra2 can fit the data and with what different sets of parameters. It isn't ever going to give you the definitive answer, and should be considered critically. 
 
