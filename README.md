@@ -23,7 +23,7 @@ This repository compiles documentation and tutorials for relevant models and too
 ### QGIS3
 - [Add Google basemap to GIS3 projects](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/googleMap_QGIS.md)
 - [Georeference raster](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/georeferencingQGIS.md)
-###ArcGIS
+### ArcGIS
 - [Kernel Density Estimation](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/KernelDensity_ArcGIS.md)
 
 ## Tools
