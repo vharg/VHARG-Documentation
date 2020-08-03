@@ -23,7 +23,8 @@ This repository compiles documentation and tutorials for relevant models and too
 ### QGIS3
 - [Add Google basemap to GIS3 projects](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/googleMap_QGIS.md)
 - [Georeference raster](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/georeferencingQGIS.md)
-
+###ArcGIS
+- [Kernel Density Estimation](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/KernelDensity_ArcGIS.md)
 
 ## Tools
 - [Upload OSM maps on Garmin GPS](https://github.com/vharg/VHARG-Documentation/blob/master/Tools/garmin.md)
