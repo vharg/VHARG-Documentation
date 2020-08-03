@@ -15,7 +15,7 @@ This repository compiles documentation and tutorials for relevant models and too
 	- [Convert DEM](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/ConvertToGRASS.md) 
 	- [Run Titan2d](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/RunTitan2d.md)
 	- [Visualise Outputs](https://github.com/vharg/VHARG-Documentation/blob/master/Titan2d/Visualisation.md)
-		
+- [Energy Cone](https://github.com/vharg/VHARG-Documentation/blob/master/EnergyCone/EnergyCone.md)		
 ## Wind data
 - [ERA 5 download](https://github.com/vharg/VHARG-Documentation/blob/master/WindData/ERA5_DataDownload.md)
 
