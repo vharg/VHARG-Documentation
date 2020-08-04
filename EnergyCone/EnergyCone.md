@@ -23,12 +23,17 @@ cone_levels = [30]
 dist_source = [1]
 
 lon_cen/lat_cen OR east_cen/north_cen = [collapse location in decimal degree or UTM coordinates]
+
 var_cen = [uncertainty of collapse location in meters]
 
 height = [height of the collapse in meters]
+
 hl = [H/L ratio]
+
 var_height = [uncertainty of the collapse height in meters]
+
 var_hl = [uncertainty of the H/L ratio]
+
 dist_input = [1]
 
 N = [number of simulations, 300 seems sufficient]
