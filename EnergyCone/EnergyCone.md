@@ -10,7 +10,7 @@ The code runs in python3 and requires the following modules: matplotlib, numpy, 
 
 ## Preparation of inputs
 
-Each run of the ECMapProb code needs its own `input_data.py` file with the parameters for that particular simulation. The following paramters must be edited:
+Each run of the ECMapProb code needs its own `input_data.py` file with the parameters for that particular simulation. The following parameters must be edited:
 
 run_name = [desired name of your output file folder]
 
@@ -19,28 +19,37 @@ source_dem = [1 or 2]
 - 2 should be used if you would like to import a DEM (in .txt/.asc format which must be in UTM). If this is the case, you should remove the lines for lat1,lat2,long1,long2 and add the line "topography_file = [filename]"
 
 cone_levels = [30]
+- leave as default
 
 dist_source = [1]
+- leave as default
 
 lon_cen/lat_cen OR east_cen/north_cen = [collapse location in decimal degree or UTM coordinates]
+- set to most likely location of vent for a new eruption
 
-var_cen = [uncertainty of collapse location in meters]
+var_cen = [uncertainty radius of collapse location in meters]
+- based on measurement of crater or summit area
 
 height = [height of the collapse in meters]
+- 10% of the total eruption column height is a good value, based on Wilson et al. (1978)
 
 hl = [H/L ratio]
+- flowdat database is a good place to source analogues or generalised values and uncertainties
 
 var_height = [uncertainty of the collapse height in meters]
 
 var_hl = [uncertainty of the H/L ratio]
 
 dist_input = [1]
+- set at 1 for uniform distribution of H/L and height values
 
 N = [number of simulations, 300 seems sufficient]
 
 save_data = [1]
+- leave as default
 
 redist_energy = [4]
+- leave as default
 
 ## Running ECMapProb.py
 
