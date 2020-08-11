@@ -20,7 +20,7 @@ This repository compiles documentation and tutorials for relevant models and too
 - [ERA 5 download](https://github.com/vharg/VHARG-Documentation/blob/master/WindData/ERA5_DataDownload.md)
 
 ## GIS Tricks
-- [Download SRTM DEM's](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/DownloadDEM.md)
+- [Download SRTM DEM](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/DownloadDEM.md)
 ### QGIS3
 - [Add Google basemap to GIS3 projects](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/googleMap_QGIS.md)
 - [Georeference raster](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/georeferencingQGIS.md)
