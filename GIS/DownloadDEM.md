@@ -1,4 +1,4 @@
-##Download DEM
+## Download DEM
 
 1. SRTM digital elevation models can be downloaded from the [USGS earth explorer site][link1] (for this you need to register and make an account). 
 
