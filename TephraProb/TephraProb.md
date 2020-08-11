@@ -24,12 +24,14 @@ TephraProb is installed on Komodo in `/home/volcano/TephraProb/`.
 
 ### Windows users
 
-If TephraProb was run on Windows, you might have to alter your `T2_stor.txt` file. Each line contains a separate command to Tephra2 with the paths to the configuration, wind, grid, grain-size and output files. :warning: All path in this file must be relative to the root folder of TephraProb, so any line that contains an absolute path must be trimmed. This can easily be done with any *Find & Replace* command of any text editor. For instance:
+:warning: If TephraProb was run on Windows, you might have to alter your `T2_stor.txt` file. Each line contains a separate command to Tephra2 with the paths to the configuration, wind, grid, grain-size and output files. :warning: All path in this file must be relative to the root folder of TephraProb, so any line that contains an absolute path must be trimmed. This can easily be done with any *Find & Replace* command of any text editor. For instance:
 
 ```sh
 C:/Documents/TephraProb/RUNS/...	# Wrong
 RUNS/...							# Right
 ```
+
+:warning: Also, the *line ending* of `T2_stor.txt` must be set to a UNIX format. You need to Google how to do that based on your favourite text editor (e.g. Notepad++, Visual Studio, Sublime).
 
 
 ## Main procedure

@@ -1,6 +1,16 @@
-# Run Fall3D on the Komodo cluster @ NTU/ASE :volcano: :tiger2:
+# Run Fall3D 8 on the GEKKO cluster @ NTU/ASE :volcano: :tiger2:
 
-  - [Intro](#intro)
+- Fall3D 8 Homepage
+- [Fall3D 8 User Manual](https://gitlab.com/fall3d-distribution/v8.0/-/wikis/home)
+
+To load Fall3D:
+```
+module load fall3d/8.0
+```
+
+The binary is called `Fall3d.r8.x` (I suspect it is `Fall3d.r8.0`)
+
+  <!-- - [Intro](#intro)
   - [Download wind data](#download-wind-data)
   - [Run Fall3D](#run-fall3d)
 
@@ -126,4 +136,4 @@ This takes a while but provides lots of images that can be viewed in the cluster
 python -m SimpleHTTPServer 8080
 ```
 ... which can then be visualised by opening [172.21.46.50:8080](172.21.46.50:8080) in a web browser. Alternatively, you can use [Panoply](https://www.giss.nasa.gov/tools/panoply/download/) to open the file ```Makaturing.res.nc```.
-
+ -->

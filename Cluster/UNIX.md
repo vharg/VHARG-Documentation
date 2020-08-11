@@ -2,6 +2,8 @@
 
 UNIX (here used as a synonym of Linux) is a *command line-based* operating system. The same tasks can be achieved as with a *Graphical User Interface* (GUI) but through text commands. To access it, use the `Powershell` on Windows and `Terminal` on MacOS. This intro is a rough guide to illustrate the most useful commands to get started, but remember that Google Sensei is here for you too!
 
+The *National Supercomputing Center of Singapore* (NSCC) also proposes a nice, and slightly more thorough tutorial available [here](https://help.nscc.sg/wp-content/uploads/2016/03/BasicLinuxTutorial-v0.1.pdf).
+
 ## General concepts
 Here are some general concepts that are applicable throughout this guide:
 1. In UNIX environments, paths are defined using a forward slash `/`. This is the same as with MacOS, but bear in mind that it differs from Windows, which uses back slashes `\` instead;

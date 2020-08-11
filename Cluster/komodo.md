@@ -4,6 +4,8 @@ Heavy computations are performed on a computer *cluster*. Clusters comprise diff
 
 A cluster is composed of a *master* node, which is what you will interact with, and *slave* nodes. The role of the master node is to dispatch the computing tasks, called *jobs*, to the slave nodes. No heavy computation takes place on the master node.
 
+[The NTU HPC User's group website](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2)
+
 
 ## Introduction to Komodo
 ### Connection to Komodo
@@ -18,7 +20,7 @@ Upon entering your password, you will be connected to your `HOME` folder, which 
 ### Jobs
 *Jobs* are model runs that are *submitted* to the master node, which will dispatch it to the slave nodes for computations. Upon submission, the job joins a *queue* that manages which nodes are available. Three commands are useful:
 - `qsub`: Submits the job. Each job is assigned a `job ID`, for instance `96326`
-- `qstat`: Shows the jobs that are running on the cluster. To see only your own jobs, use `qstat -u userName`. Jobs can be in either of these four modes:
+- `qstat`: Shows the jobs that are running on the cluster. To see only your own jobs, use `qstat -u userName`. Other options are given by `qstat -f` and `qstat -t`. Jobs can be in either of these four modes:
   - `R`: Running
   - `C`: Cancelled
   - `Q`: Queued - i.e. the job is delayed in the queue because all the nodes are busy
@@ -34,9 +36,35 @@ qsub batchFile.sh
 #### Tracking errors
 Errors are recorded in a *log* file located in `~/jobId.komodo2.des.OU`. If there is a problem with the job, i.e. the job rapidly changes from `Q` to `R` to `C`, checking the log file is likely to help identifying the error.
 
+### Check node usage
+To check how much a given node is used by a job:
+1. Run `checkjob jobid`, where `jobid` is the job number. This will input a list of the nodes being used, typically something like `[des-compute69-ib0:24][des-compute68-ib0:24]`.
+2. SSH into one of the nodes: `ssh  des-compute69-ib0`
+3. Once in, run `top`
+
+### Gekko - request an interactive node
+```
+qsub -q q32_eos -P eos_susanna.jenkins -l select=1:ncpus=32 -I
+```
+
 ## Accessing remote files
 
 ### Using a graphical interface
 Third-party softwares can be used to browse and interact with your files on Komodo. Options include:
 - [Cyberduck](https://cyberduck.io) on MacOS
 - [WinSCP](https://winscp.net/eng/download.php) on Windows
+
+
+## Gekko documentation
+- [General documentation](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2)
+- [Matlab on Gekko](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2/SitePages/Running-MATLAB-on-Gekko.aspx)
+- [Specific to Parallel Computing using MATLAB Gekko](https://entuedu.sharepoint.com/teams/ntuhpcusersgroup2/Shared%20Documents/Getting%20Started%20with%20Parallel%20Computing%20using%20MATLAB%20Gekko%20v1-0.pdf)
+
+## q128
+```
+export OMP_NUM_THREADS=1
+export MKL_DEBUG_CPU_TYPE=5
+
+mpirun-np 128 -genvI_MPI_DEBUG=5 -genvI_MPI_PIN=1 -genvKMP_AFFINITY verbose,granularity=fine,compact _program-name
+
+```
