@@ -1,7 +1,7 @@
 # Kernel Density Estimation
 
 ## General description
-With a Kernel Density Estimation (KDE) it is possible to calculate the density (e.g. number of events/km2) of features (points or lines) within a given area. A KDE is strongly dependant on the choice of the search radius (or bandwidth), which is the search extent around the mean centre of the area in exam. If the search radius is too small we may have an overestimation of density near the mean centre, on the contrary, if the search radius is too large we may have an overestimation of density away from the mean centre, resulting in a more smoothed Kernel map. However, the default search radius available in ArcMap (calculated from a variant of Silverman’s rule of thumb) provides rather robust results, particularly for spatial outliers. A practical example of this method is the creation of a spatial density distribution of vents within a volcanic field (e.g. Connor et al., 2012), however, it can be applied to a large number of subjects.
+With a Kernel Density Estimation (KDE) it is possible to calculate the density (e.g. number of events/km2) of features (points or lines) within a given area. A KDE is strongly dependant on the choice of the search radius (or bandwidth), which is the search extent around the mean centre of the dataset within the area in exam. If the search radius is too small we may have an overestimation of density near the mean centre, on the contrary, if the search radius is too large we may have an overestimation of density away from the mean centre, resulting in a more smoothed Kernel map. However, the default search radius available in ArcMap (calculated from a variant of Silverman’s rule of thumb) provides rather robust results, particularly for spatial outliers. A practical example of this method is the creation of a spatial density distribution of vents within a volcanic field (e.g. Connor et al., 2012), however, it can be applied to a large number of subjects.
 
 ## Procedure
 -	In ArcMap, open the ArcToolbox > Spatial Analyst Tools > Density > Kernel Density
@@ -20,4 +20,7 @@ For more details on how the Kernel Density works and about the individual fields
 -	https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/how-kernel-density-works.htm
 
 ## Outcome
-The outcome of a KDE is a density map that can be visualized in different ways, a common way is through a classified coloured ramp where different density classes can be assigned and each colour represents a density class. The number of classes and the way they are visualised can be decided (right click on the Kernel raster > properties > symbology > classified). These classes can be of several types according to the application (click on this link for more information: https://pro.arcgis.com/en/pro-app/help/mapping/layer-properties/data-classification-methods.htm).
+The outcome of a KDE is a density map that can be visualized in different ways, a common way is through a classified coloured ramp where different density classes can be assigned and each colour represents a density class. The number and the type of classes can be decided (right click on the Kernel raster > properties > symbology > classified). 
+
+click on this link for more information about the class types:
+- https://pro.arcgis.com/en/pro-app/help/mapping/layer-properties/data-classification-methods.htm).
