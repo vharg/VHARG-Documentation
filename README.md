@@ -21,6 +21,7 @@ This repository compiles documentation and tutorials for relevant models and too
 
 ## GIS Tricks
 - [Download SRTM DEM](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/DownloadDEM.md)
+- [View photo locations in Google Earth](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/photooranizationGIS.md)
 ### QGIS3
 - [Add Google basemap to GIS3 projects](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/googleMap_QGIS.md)
 - [Georeference raster](https://github.com/vharg/VHARG-Documentation/blob/master/GIS/georeferencingQGIS.md)
