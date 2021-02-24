@@ -5,6 +5,7 @@ This repository compiles documentation and tutorials for relevant models and too
 ## General concepts
 - [Introduction to UNIX](https://github.com/vharg/VHARG-Documentation/blob/master/Cluster/UNIX.md)
 - [Introduction to computer clusters](https://github.com/vharg/VHARG-Documentation/blob/master/Cluster/komodo.md)
+- [Matlab in parallel on Gekko](https://github.com/vharg/VHARG-Documentation/blob/master/Cluster/Matlab-Gekko.md)
 
 ## Models
 - [Fall3D 7.2 (Komodo)](https://github.com/vharg/VHARG-Documentation/blob/master/Fall3D/Fall3D.md) 
