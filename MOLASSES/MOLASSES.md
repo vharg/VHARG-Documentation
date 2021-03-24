@@ -22,9 +22,10 @@ Copy config.laos to your own configuration file, e.g. config.gede, and edit the 
 - SPD_GRID_SPACING of spatial density file
 - RESIDUAL VALUES - where residual is the simulated lava flow thickness
 - VOLUMES:
-  - MIN/MAX_TOTAL_VOLUME - ??
-  - LOG_MEAN/STD_DEV_TOTAL_VOLUME = ??
-- PULSE VOLUME (min and max) - where pulse volume is ??
+  - MIN/MAX_TOTAL_VOLUME - min and max volume set to erupt across all simulations
+  - LOG_MEAN_VOLUME - logarithm of the mean volume across the range of volumes considered
+  - STD_DEV_TOTAL_VOLUME - logarithm of the volume standard deviation across the range of volumes considered
+- MIN/MAX PULSE VOLUME - min and max volume set to erupt for one pulse for each simulation (one simulation can have multiple pulse, but the sum must not exceed the total volume)
 - FLOWS - number of flows per simulation
 - RUNS - number of simulations to run
 
