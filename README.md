@@ -19,6 +19,10 @@ This repository compiles documentation and tutorials for relevant models and too
 - [Energy Cone](https://github.com/vharg/VHARG-Documentation/blob/master/EnergyCone/EnergyCone.md)		
 - [MOLASSES](https://github.com/vharg/VHARG-Documentation/blob/master/MOLASSES/MOLASSES.md)	
 - [PyVOLCANS](https://github.com/vharg/VHARG-Documentation/blob/master/PyVOLCANS/PyVOLCANS.md)
+- [FlowDIR](https://github.com/EllyTennant/FlowDIR/blob/main/README.md)
+- [VolcGIS](https://github.com/vharg/VolcGIS)
+- [Road Network Disruption Score](https://github.com/vharg/RNDS)
+- [F-M SE Asia](https://github.com/vharg/FreqMagSEA)
 
 ## Wind data
 - [ERA 5 download](https://github.com/vharg/VHARG-Documentation/blob/master/WindData/ERA5_DataDownload.md)
