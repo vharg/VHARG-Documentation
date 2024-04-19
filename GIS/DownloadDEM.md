@@ -1,4 +1,4 @@
-##Download DEM in QGIS
+## Download DEM in QGIS
 1. Add OpenTopography plugin
 2. Open Raster -> OpenTopography
 3. Define extent (can be from existing layer)
