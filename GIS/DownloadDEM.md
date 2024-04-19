@@ -1,4 +1,10 @@
-## Download DEM
+##Download DEM in QGIS
+1. Add OpenTopography plugin
+2. Open Raster -> OpenTopography
+3. Define extent (can be from existing layer)
+4. Download
+
+## Download DEM from web
 
 1. SRTM digital elevation models can be downloaded from the [USGS earth explorer site][link1] (for this you need to register and make an account). 
 
