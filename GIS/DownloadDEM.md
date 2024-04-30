@@ -3,7 +3,7 @@
 2. Open Raster -> OpenTopography
 3. Define extent (can be from existing layer)
 4. Download
-5. (Remember to use an appropriate Z factor when plotting hillshade)
+5. Remember to use an appropriate Z factor when plotting hillshade, e.g. 0.00001
 
 ## Download DEM from web
 
