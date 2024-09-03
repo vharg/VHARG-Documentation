@@ -23,7 +23,7 @@ This repository compiles documentation and tutorials for relevant models and too
 - [MOLASSES](https://github.com/vharg/VHARG-Documentation/blob/master/MOLASSES/MOLASSES.md)	
 - [VolcGIS](https://github.com/vharg/VolcGIS)
 - [Road Network Disruption Score](https://github.com/vharg/RNDS)
-- [Fragility curve fitting with uncertainty](https://github.com/vharg/VHARG-Documentation/blob/master/Fragility/ReadMe.md)
+- [Fragility curve fitting with uncertainty](https://github.com/vharg/VHARG-Documentation/blob/master/Fragility)
 
 ## Wind data
 - [ERA 5 download](https://github.com/vharg/VHARG-Documentation/blob/master/WindData/ERA5_DataDownload.md)
