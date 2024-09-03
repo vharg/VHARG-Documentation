@@ -28,7 +28,7 @@ library(cowplot)
 # just need a file with at least two columns
 # one column is hazard intensity "him" and the other column is "ds" damage levels 0-3 
 
-data <- read_csv("https://raw.githubusercontent.com/flying-rock/fragility/master/tephracush_all_data.csv")
+data <- read_csv("https://raw.githubusercontent.com/flying-rock/fragility/master/SampleData.csv")
 ```
 
 # fitting GLM without confidence intervals
@@ -95,7 +95,7 @@ him_plot_t=seq(0.001,250,length=100) # tile
 him_plot_r=seq(0.001,10000,length=100) # reinforced concrete
 
 # read in data again
-data <-  read.csv("https://raw.githubusercontent.com/flying-rock/fragility/master/tephracush_all_data.csv")
+data <-  read.csv("https://raw.githubusercontent.com/flying-rock/fragility/master/SampleData.csv")
 
 #filter to get four different sets of data for plotting curves
 # rc bare and cushioned experiments 
@@ -305,7 +305,7 @@ concrete
 # plot the above curves together and display the data that was used to make them 
 # figure from manuscript
 
-input <- read.csv("https://raw.githubusercontent.com/flying-rock/fragility/master/tephracush_all_data.csv")
+input <- read.csv("https://raw.githubusercontent.com/flying-rock/fragility/master/SampleData.csv")
 # filter in the data you want to plot
 tile_input <- input %>% dplyr::filter(Material=='Tile',
                                  Thickness <= 6,
