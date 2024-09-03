@@ -1,0 +1,362 @@
+---
+title: "Data_supplement"
+author: "George Williams"
+date: "22/08/2019"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Script for plotting fragility curves from tephra cushioning experiments
+##can be edited to work on data from your own experiments
+
+#start by installing all these packages (with "install.packages('package_name')") 
+#and then run the code below to load them into R's memory
+```{r}
+library(tidyverse)
+library(ordinal)
+library(reshape)
+library(cowplot)
+```
+
+#read data files
+```{r}
+# just need a file with at least two columns
+# one column is hazard intensity "him" and the other column is "ds" damage levels 0-3 
+
+data <- read_csv("https://raw.githubusercontent.com/flying-rock/fragility/master/tephracush_all_data.csv")
+```
+
+# fitting GLM without confidence intervals
+```{r}
+# create a sequence that specifies the hazard intensities over which you want to plot your curves 
+# format is seq(start at, finish at, at intervals of OR length=number of points)
+him_plot=seq(0.001,max(data$him)*1.2,length=100)
+
+# filter to one type of experiment
+data <- data %>%
+  dplyr::filter(Material == 'RC',
+                Cushioning =='Bare')
+
+
+#create one copy of the data for each ds 
+data1 <- data 
+data2 <- data
+data3 <- data
+
+# make data binary such that success (reaching or exceeding a given ds) = 1 and failure = 0 
+damage_state1=1
+data1$ds[which(data$ds<damage_state1)]=0
+data1$ds[which(data$ds>=damage_state1)]=1
+
+damage_state2=2
+data2$ds[which(data$ds<damage_state2)]=0
+data2$ds[which(data$ds>=damage_state2)]=1
+
+damage_state3=3
+data3$ds[which(data$ds<damage_state3)]=0
+data3$ds[which(data$ds>=damage_state3)]=1
+
+# define your model with glm(), using binomial family as response variable is binary
+# use probit link if you want to calcualte confidence intervals using pnorm() as...
+# the inverse link function
+# don't forget to take the log of your HIM values if... 
+# you are making standard lognormal CDF fragility curves 
+glmmod1=glm(ds~log(him),data=data1,family=binomial('probit'))
+glmmod2=glm(ds~log(him),data=data2,family=binomial('probit'))
+glmmod3=glm(ds~log(him),data=data3,family=binomial('probit'))
+
+# use your glm to predict damage state exceedance probability at specified HIM values  
+glmpred1=predict(glmmod1,newdata=data.frame(him=him_plot),type = "response")
+glmpred2=predict(glmmod2,newdata=data.frame(him=him_plot),type = "response")
+glmpred3=predict(glmmod3,newdata=data.frame(him=him_plot),type = "response")
+
+# put all data into one data frame for plotting
+alldata <- data.frame(IM=him_plot,DS1=glmpred1,DS2=glmpred2,DS3=glmpred3)
+alldata <- melt(alldata, id= "IM")
+alldata <- alldata %>% dplyr::rename(DS=variable)
+
+glm.fcs <- ggplot(data=alldata)+
+  xlab("Impact Energy (J)")+
+  ylab("P(Damage State ≥ DS)")+
+  ylim(0,1)+
+  geom_line(aes(x=IM,y=value, linetype=DS))
+glm.fcs
+```
+
+#fitting CLM and calculating confidence intervals
+```{r}
+# create sequences of hazard intensities to plot/predict over
+him_plot_t=seq(0.001,250,length=100) # tile
+him_plot_r=seq(0.001,10000,length=100) # reinforced concrete
+
+# read in data again
+data <-  read.csv("https://raw.githubusercontent.com/flying-rock/fragility/master/tephracush_all_data.csv")
+
+#filter to get four different sets of data for plotting curves
+# rc bare and cushioned experiments 
+rc_b <- data %>% dplyr::filter(Material=='RC',
+                                  Cushioning=="Bare",
+                                  Thickness<6)
+
+rc_c <- data %>% dplyr::filter(Material=='RC',
+                                  Cushioning=="Cushion",
+                                  Thickness<6)
+
+# tile bare and cushioned experiments
+tile_b <- data %>% dplyr::filter(Material=='Tile',
+                                    Cushioning=="Bare",
+                                    Thickness<6)
+
+tile_c <- data %>% dplyr::filter(Material=='Tile',
+                                    Cushioning=="Cushion",
+                                    Thickness<6)
+
+# make data frames using as.ordered() to set up damage levels as ordered factors for CLM
+tc_clmdata <- data.frame(him= tile_c$him,ds = as.ordered(tile_c$ds),loghim=log(tile_c$him))
+tb_clmdata <- data.frame(him= tile_b$him,ds = as.ordered(tile_b$ds),loghim=log(tile_b$him))
+
+rcc_clmdata <- data.frame(him= rc_c$him,ds = as.ordered(rc_c$ds),loghim=log(rc_c$him))
+rcb_clmdata <- data.frame(him= rc_b$him,ds = as.ordered(rc_b$ds),loghim=log(rc_b$him))
+
+
+tc_clmmod <- clm(ds ~ loghim, data=tc_clmdata,link="probit")
+tb_clmmod <- clm(ds ~ loghim, data=tb_clmdata,link="probit")
+
+rcc_clmmod <- clm(ds ~ loghim, data=rcc_clmdata,link="probit")
+rcb_clmmod <- clm(ds ~ loghim, data=rcb_clmdata,link="probit")
+
+#predict clm values for plotting curves
+#tile
+tc_pred=predict(tc_clmmod,newdata=data.frame(loghim=log(him_plot_t)),type="linear.predictor", se.fit=TRUE)
+tc_prob=data.frame(mean=1-pnorm(tc_pred$eta2[,3]),
+                   lwr= 1-pnorm(tc_pred$eta2[,3] - tc_pred$se.eta2[,3]),
+                   upr= 1-pnorm(tc_pred$eta2[,3] + tc_pred$se.eta2[,3]),
+                   him=him_plot_t)
+# ggplot()+
+#   geom_line(aes(him,mean), data=tc_prob)+
+#   geom_ribbon(aes(x=him,ymax=lwr, ymin=upr), alpha=0.3, data=tc_prob)
+
+tb_pred=predict(tb_clmmod,newdata=data.frame(loghim=log(him_plot_t)),type="linear.predictor", se.fit = TRUE)
+tb_prob=data.frame(mean=1-pnorm(tb_pred$eta2[,4]),
+                   lwr=1-pnorm(tb_pred$eta2[,4] - tb_pred$se.eta2[,4]),
+                   upr=1-pnorm(tb_pred$eta2[,4] + tb_pred$se.eta2[,4]),
+                   him=him_plot_t)
+# ggplot()+
+#   geom_line(aes(him,mean), data=tb_prob)+
+#   geom_ribbon(aes(x=him,ymax=lwr, ymin=upr),alpha=0.3, data=tb_prob)
+
+# rc
+rcc_pred=predict(rcc_clmmod,newdata=data.frame(loghim=log(him_plot_r)),type="linear.predictor", se.fit=TRUE)
+rcc_prob=data.frame(mean=1-pnorm(rcc_pred$eta2[,3]),
+                   lwr= 1-pnorm(rcc_pred$eta2[,3] - rcc_pred$se.eta2[,3]),
+                   upr= 1-pnorm(rcc_pred$eta2[,3] + rcc_pred$se.eta2[,3]),
+                   him=him_plot_r)
+# ggplot()+
+#   geom_line(aes(him,mean), data=rcc_prob)+
+#   geom_ribbon(aes(x=him,ymax=lwr, ymin=upr), alpha=0.3, data=rcc_prob)
+
+rcb_pred=predict(rcb_clmmod,newdata=data.frame(loghim=log(him_plot_r)),type="linear.predictor", se.fit = TRUE)
+rcb_prob=data.frame(mean=1-pnorm(rcb_pred$eta2[,3]),
+                   lwr=1-pnorm(rcb_pred$eta2[,3] - rcb_pred$se.eta2[,3]),
+                   upr=1-pnorm(rcb_pred$eta2[,3] + rcb_pred$se.eta2[,3]),
+                   him=him_plot_r)
+ggplot()+
+  geom_line(aes(him,mean), data=rcb_prob)+
+  geom_ribbon(aes(x=him,ymax=lwr, ymin=upr),alpha=0.3, data=rcb_prob)
+  
+```
+
+#plotting GLM with confidence intervals
+```{r}
+
+## step 1: filter to get four different sets of data for plotting curves
+him_plot_t=seq(0.001,250,length=100)
+him_plot_r=seq(0.001,10000,length=100)
+# rc D2 for bare and cushioned experiments 
+rc_b <- data %>% dplyr::filter(Material=='RC',
+                                    Cushioning=="Bare",
+                                  Thickness<6)
+
+rc_c <- data %>% dplyr::filter(Material=='RC',
+                                    Cushioning=="Cushion",
+                                  Thickness<6)
+
+# tile D3 for bare and cushioned experiments
+tile_b <- data %>% dplyr::filter(Material=='Tile',
+                                    Cushioning=="Bare",
+                                    Thickness<6)
+
+tile_c <- data %>% dplyr::filter(Material=='Tile',
+                                    Cushioning=="Cushion",
+                                    Thickness<6)
+# make GLMs for all four data sets
+# start by making a subset of the data which can be made dichotomous for GLM
+rc_bg <- rc_b
+rc_cg <- rc_c
+tile_cg <- tile_c
+tile_bg <- tile_b
+
+# make data binary such that a success (reaching a given ds) = 1 and a failure = 0 
+damage_state2=2
+rc_bg$ds[which(rc_b$ds<damage_state2)]=0
+rc_bg$ds[which(rc_b$ds>=damage_state2)]=1
+
+damage_state2=2
+rc_cg$ds[which(rc_c$ds<damage_state2)]=0
+rc_cg$ds[which(rc_c$ds>=damage_state2)]=1
+
+damage_state3=3
+tile_bg$ds[which(tile_b$ds<damage_state3)]=0
+tile_bg$ds[which(tile_b$ds>=damage_state3)]=1
+
+damage_state3=3
+tile_cg$ds[which(tile_c$ds<damage_state3)]=0
+tile_cg$ds[which(tile_c$ds>=damage_state3)]=1
+
+rc_c_glmmod2=glm(ds~log(him),data=rc_cg,family=binomial('probit'))
+rc_b_glmmod2=glm(ds~log(him),data=rc_bg,family=binomial('probit'))
+
+tile_c_glmmod3=glm(ds~log(him),data=tile_cg,family=binomial('probit'))
+tile_b_glmmod3=glm(ds~log(him),data=tile_bg,family=binomial('probit'))
+
+# predict glm values for plotting curves
+
+rccgpred2=predict(rc_c_glmmod2,newdata=data.frame(him=him_plot_r))
+rcbgpred2=predict(rc_b_glmmod2,newdata=data.frame(him=him_plot_r))
+
+tcgpred3=predict(tile_c_glmmod3,newdata=data.frame(him=him_plot_t))
+tbgpred3=predict(tile_b_glmmod3,newdata=data.frame(him=him_plot_t))
+
+# upper and lower confidence intervals for each data set
+
+tc_cov=summary(tile_c_glmmod3)$cov.scaled
+tc_var=tc_cov[1,1]+2*log(him_plot_t)*tc_cov[2,1]+(log(him_plot_t))^2*tc_cov[2,2]
+
+tb_cov=summary(tile_b_glmmod3)$cov.scaled
+tb_var=tb_cov[1,1]+2*log(him_plot_t)*tb_cov[2,1]+(log(him_plot_t))^2*tb_cov[2,2]
+
+rcb_cov=summary(rc_b_glmmod2)$cov.scaled
+rcb_var=rcb_cov[1,1]+2*log(him_plot_r)*rcb_cov[2,1]+(log(him_plot_r))^2*rcb_cov[2,2]
+
+rcc_cov=summary(rc_c_glmmod2)$cov.scaled
+rcc_var=rcc_cov[1,1]+2*log(him_plot_r)*rcc_cov[2,1]+(log(him_plot_r))^2*rcc_cov[2,2]
+
+
+
+# make one dataframe for each graph - tile glm vs clm and rc glm vs clm
+z=1
+
+t.df <- data.frame(him = him_plot_t, 
+                   tc_mean = pnorm(tcgpred3),
+                   tc_upr=pnorm(tcgpred3 + z*tc_var^0.5),
+                   tc_lwr=pnorm(tcgpred3 - z*tc_var^0.5),
+                   tb_mean = pnorm(tbgpred3),
+                   tb_upr=pnorm(tbgpred3 + z*tb_var^0.5),
+                   tb_lwr=pnorm(tbgpred3 - z*tb_var^0.5))
+
+rc.df <- data.frame(him = him_plot_r, 
+                   rcc_mean = pnorm(rccgpred2),
+                   rcc_upr=pnorm(rccgpred2 + z*rcc_var^0.5),
+                   rcc_lwr=pnorm(rccgpred2 - z*rcc_var^0.5),
+                   rcb_mean = pnorm(rcbgpred2),
+                   rcb_upr=pnorm(rcbgpred2 + z*rcb_var^0.5),
+                   rcb_lwr=pnorm(rcbgpred2 - z*rcb_var^0.5))
+
+
+# make the plots and cowplot them
+
+tile <- ggplot(data=t.df)+
+  geom_ribbon(aes(x=him_plot_t, ymin=tc_lwr, ymax=tc_upr, fill='Cushion'),alpha=0.4)+
+  geom_ribbon(aes(x=him_plot_t, ymin=tb_lwr, ymax=tb_upr, fill='Bare'),alpha=0.4)+
+  geom_ribbon(aes(x=him,ymax=lwr, ymin=upr),alpha=0.4, data=tb_prob, fill='blue4')+
+  geom_ribbon(aes(x=him,ymax=lwr, ymin=upr),alpha=0.4, data=tc_prob, fill='red4')+
+  geom_line(aes(him_plot_t,tb_mean, lty='GLM'))+
+  geom_line(aes(him_plot_t,tc_mean, lty='GLM'))+
+  scale_fill_manual(values=c('blue','red'))+
+  guides(fill=guide_legend(""),lty=guide_legend(""))+
+  xlab('Impact Energy (J)')+
+  ylab('P(DS ≥ DS3)')+
+  theme_bw()+
+  geom_line(aes(him,mean,lty='CLM'), data=tb_prob)+
+  geom_line(aes(him,mean,lty='CLM'), data=tc_prob)
+tile
+
+concrete <- ggplot(data=rc.df)+
+  geom_ribbon(aes(x=him_plot_r, ymin=rcc_lwr, ymax=rcc_upr, fill='Cushion'),alpha=0.4)+
+  geom_ribbon(aes(x=him_plot_r, ymin=rcb_lwr, ymax=rcb_upr, fill='Bare'),alpha=0.4)+
+  geom_ribbon(aes(x=him,ymax=lwr, ymin=upr),alpha=0.4, data=rcb_prob, fill='blue4')+
+  geom_ribbon(aes(x=him,ymax=lwr, ymin=upr),alpha=0.4, data=rcc_prob, fill='red4')+
+  geom_line(aes(him_plot_r,rcb_mean, lty='GLM'))+
+  geom_line(aes(him_plot_r,rcc_mean, lty='GLM'))+
+  scale_fill_manual(values=c('blue','red'))+
+  guides(fill=guide_legend(""),lty=guide_legend(""))+
+  xlab('Impact Energy (J)')+
+  ylab('P(DS ≥ DS2)')+
+  theme_bw()+
+  geom_line(aes(him,mean,lty='CLM'), data=rcb_prob)+
+  geom_line(aes(him,mean), data=rcc_prob)
+concrete  
+
+# plot the above curves together and display the data that was used to make them 
+# figure from manuscript
+
+input <- read.csv("https://raw.githubusercontent.com/flying-rock/fragility/master/tephracush_all_data.csv")
+# filter in the data you want to plot
+tile_input <- input %>% dplyr::filter(Material=='Tile',
+                                 Thickness <= 6,
+                                 ds>=0)
+tile_input$ds <- as.factor(tile_input$ds)
+
+tile_all <- tile_input %>% dplyr::filter(Material=='Tile',
+                                    Thickness<6)
+damage_state3=3
+
+tile_all$ds[which(tile_all$ds<damage_state3)]=0
+tile_all$ds[which(tile_all$ds>=damage_state3)]=1
+tile_all$dsf = as.factor(tile_all$ds)
+
+tile_dat <- ggplot(tile_all)+
+  geom_point(aes(him,dsf,shape=Cushioning,colour=Cushioning),alpha=.5)+
+  theme_bw()+
+  xlim(0,250)+
+  scale_shape_manual(values=c(1,17))+
+  scale_color_manual(values=c('blue','red'))+
+  guides(colour=guide_legend(""),
+         shape=guide_legend(''))+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.title.y = element_blank())
+tile_dat
+
+rc_all <- input %>% dplyr::filter(Material=='RC',
+                                      Thickness<6)
+damage_state3=2
+rc_all$ds[which(rc_all$ds<damage_state3)]=0
+rc_all$ds[which(rc_all$ds>=damage_state3)]=1
+rc_all$dsf = as.factor(rc_all$ds)
+
+rc_dat <- ggplot(rc_all)+
+  geom_point(aes(him,dsf,shape=Cushioning,colour=Cushioning),alpha=.5)+
+  theme_bw()+
+  xlim(0,10000)+
+  scale_shape_manual(values=c(1,17))+
+  scale_color_manual(values=c('blue','red'))+
+  guides(colour=guide_legend(""),
+         shape=guide_legend(''))+
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.title.y = element_blank())
+rc_dat
+
+
+t_plots <- cowplot::plot_grid(tile_dat,tile,nrow = 2, axis = "lr", align = "v", rel_heights = c(1,3.3))
+rc_plots <- cowplot::plot_grid(rc_dat,concrete,nrow = 2, axis = "lr", align = "v", rel_heights = c(1,3.3))
+cowplot::plot_grid(rc_plots,t_plots,nrow = 2)
+```
