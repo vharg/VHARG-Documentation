@@ -1,6 +1,9 @@
-Code to fit fragility curves to your own data, produce fragility curve plots and calculate uncertainty quickly in R. This code and associated data are explained in Williams et al., 2019, and has been used in a number of other VHARG papers (see below). A workflow description (Natalie Teng, 2026), is below and uses airport disruption as the case study (Lerner et al., 2026), although the workflow remains the same for building fragility curves from any damage/impact state vs hazard intensity data.
+# Description of code and past uses
+This repository contains R code to fit fragility curves to your own data, produce fragility curve plots and calculate uncertainty quickly. This code and associated sample data for building damage from ballistics are explained in Williams et al., 2019, and has been used in a number of other VHARG papers (see below). A workflow description (Natalie Teng, 2026), is below and uses airport disruption as the case study (Lerner et al., 2026), although the workflow remains the same for building fragility curves from any damage/impact state vs hazard intensity data.
 
 Williams, G.T., Kennedy, B.M., Lallemant, D., Wilson, T.M., Allen, N., Scott, A. and Jenkins, S.F., 2019. Tephra cushioning of ballistic impacts: Quantifying building vulnerability through pneumatic cannon experiments and multiple fragility curve fitting approaches. Journal of Volcanology and Geothermal Research, 388, p.106711.
+
+Williams, G.T., Jenkins, S.F., Biass, S., Wibowo, H.E. and Harijoko, A., 2020. Remotely assessing tephra fall building damage and vulnerability: Kelud Volcano, Indonesia. Journal of Applied Volcanology, 9(1), p.10.
 
 Meredith, E.S., Jenkins, S.F., Hayes, J.L., Chee, D.J., Lallemant, D., Deligne, N.I., Meletlidis, S. and Felpeto, A., 2025. Developing empirical fragility functions for lava flow building damage. International Journal of Disaster Risk Reduction, p.105844.
 
@@ -8,7 +11,7 @@ Tennant, E., Jenkins, S.F., Widiwijayanti, C., Basuki, A. and Purnamasari, H.D.,
 
 Lerner, G.A., Teng, N.R., Jenkins, S.F., Lallemant, D., Tupper, A., Hayes, J.L., Williams, G.T., Joffrain, M., Wardman, J. and Lira-Beltrán, R.M., 2026. Impacts-based analysis of disruption to airport operations by volcanic ashfall. Journal of Applied Volcanology, 15(1), p.7.
 
-# WORKFLOW DESCRIPTION, applied to Ashfall Airport Disruption
+# Workflow, applied to Ashfall Airport Disruption
 
 Code for creating fragility functions using airport closure duration and ashfall thickness data. 
 
